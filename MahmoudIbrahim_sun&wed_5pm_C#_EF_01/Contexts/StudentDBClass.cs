@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,19 +19,7 @@ namespace MahmoudIbrahim_sun_wed_5pm_C__EF_01.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Configure Student -> Department with Cascade Delete
-            modelBuilder.Entity<Student>()
-                .HasOne(s => s.Department)
-                .WithMany(d => d.Students)
-                .HasForeignKey(s => s.DepartmentId) // Specify the foreign key in the Student entity
-                .OnDelete(DeleteBehavior.SetNull);  // SetNull delete for Student -> Department
-
-            modelBuilder.Entity<Instructor>()
-                .HasOne(i => i.Department)
-                .WithMany(d => d.Instructors)
-                .HasForeignKey(i => i.dept_id)
-                .OnDelete(DeleteBehavior.SetNull);
-
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             base.OnModelCreating(modelBuilder);
         }
 

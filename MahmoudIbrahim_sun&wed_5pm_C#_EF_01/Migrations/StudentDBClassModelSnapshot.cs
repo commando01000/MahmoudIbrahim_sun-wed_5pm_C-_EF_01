@@ -55,7 +55,7 @@ namespace MahmoudIbrahim_sun_wed_5pm_C__EF_01.Migrations
                     b.HasIndex("TopicId")
                         .IsUnique();
 
-                    b.ToTable("Courses");
+                    b.ToTable("Courses", (string)null);
                 });
 
             modelBuilder.Entity("MahmoudIbrahim_sun_wed_5pm_C__EF_01.Entities.Department", b =>
@@ -76,7 +76,7 @@ namespace MahmoudIbrahim_sun_wed_5pm_C__EF_01.Migrations
 
                     b.HasKey("id");
 
-                    b.ToTable("Departments");
+                    b.ToTable("Departments", (string)null);
                 });
 
             modelBuilder.Entity("MahmoudIbrahim_sun_wed_5pm_C__EF_01.Entities.Instructor", b =>
@@ -119,7 +119,7 @@ namespace MahmoudIbrahim_sun_wed_5pm_C__EF_01.Migrations
 
                     b.HasIndex("dept_id");
 
-                    b.ToTable("instructors");
+                    b.ToTable("instructors", (string)null);
                 });
 
             modelBuilder.Entity("MahmoudIbrahim_sun_wed_5pm_C__EF_01.Entities.Student", b =>
@@ -154,7 +154,7 @@ namespace MahmoudIbrahim_sun_wed_5pm_C__EF_01.Migrations
 
                     b.HasIndex("DepartmentId");
 
-                    b.ToTable("Students");
+                    b.ToTable("Students", (string)null);
                 });
 
             modelBuilder.Entity("MahmoudIbrahim_sun_wed_5pm_C__EF_01.Entities.StudentCourse", b =>
@@ -172,7 +172,7 @@ namespace MahmoudIbrahim_sun_wed_5pm_C__EF_01.Migrations
 
                     b.HasIndex("CourseId");
 
-                    b.ToTable("StudentCourses");
+                    b.ToTable("StudentCourses", (string)null);
                 });
 
             modelBuilder.Entity("MahmoudIbrahim_sun_wed_5pm_C__EF_01.Entities.Topic", b =>
@@ -190,7 +190,7 @@ namespace MahmoudIbrahim_sun_wed_5pm_C__EF_01.Migrations
 
                     b.HasKey("id");
 
-                    b.ToTable("Topics");
+                    b.ToTable("Topics", (string)null);
                 });
 
             modelBuilder.Entity("MahmoudIbrahim_sun_wed_5pm_C__EF_01.Entities.Course", b =>
