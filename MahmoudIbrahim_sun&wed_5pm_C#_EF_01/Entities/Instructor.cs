@@ -43,6 +43,8 @@ namespace MahmoudIbrahim_sun_wed_5pm_C__EF_01.Entities
 
         public int? dept_id { get; set; }
 
+        //[NotMapped]
+        //public int test { get; set; }
         public Department Department { get; set; }
     }
 }
