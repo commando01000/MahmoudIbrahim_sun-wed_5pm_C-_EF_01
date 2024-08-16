@@ -33,7 +33,7 @@ namespace MahmoudIbrahim_sun_wed_5pm_C__EF_01.Entities
 
         public List<StudentCourse> StudentCourses { get; set; }
 
-        public int DepartmentId { get; set; }
+        public int? DepartmentId { get; set; }
         public Department Department { get; set; }
     }
 }

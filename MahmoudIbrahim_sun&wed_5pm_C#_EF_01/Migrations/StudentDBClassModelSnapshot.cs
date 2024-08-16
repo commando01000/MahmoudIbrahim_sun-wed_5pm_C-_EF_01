@@ -112,12 +112,12 @@ namespace MahmoudIbrahim_sun_wed_5pm_C__EF_01.Migrations
                     b.Property<int?>("Salary")
                         .HasColumnType("int");
 
-                    b.Property<int>("departmentId")
+                    b.Property<int?>("dept_id")
                         .HasColumnType("int");
 
                     b.HasKey("id");
 
-                    b.HasIndex("departmentId");
+                    b.HasIndex("dept_id");
 
                     b.ToTable("instructors");
                 });
@@ -137,7 +137,7 @@ namespace MahmoudIbrahim_sun_wed_5pm_C__EF_01.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
-                    b.Property<int>("DepartmentId")
+                    b.Property<int?>("DepartmentId")
                         .HasColumnType("int");
 
                     b.Property<string>("FName")
@@ -216,9 +216,8 @@ namespace MahmoudIbrahim_sun_wed_5pm_C__EF_01.Migrations
                 {
                     b.HasOne("MahmoudIbrahim_sun_wed_5pm_C__EF_01.Entities.Department", "Department")
                         .WithMany("Instructors")
-                        .HasForeignKey("departmentId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("dept_id")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Department");
                 });
@@ -228,8 +227,7 @@ namespace MahmoudIbrahim_sun_wed_5pm_C__EF_01.Migrations
                     b.HasOne("MahmoudIbrahim_sun_wed_5pm_C__EF_01.Entities.Department", "Department")
                         .WithMany("Students")
                         .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Department");
                 });

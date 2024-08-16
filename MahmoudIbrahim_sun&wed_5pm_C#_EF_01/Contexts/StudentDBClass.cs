@@ -23,14 +23,13 @@ namespace MahmoudIbrahim_sun_wed_5pm_C__EF_01.Contexts
                 .HasOne(s => s.Department)
                 .WithMany(d => d.Students)
                 .HasForeignKey(s => s.DepartmentId) // Specify the foreign key in the Student entity
-                .OnDelete(DeleteBehavior.Cascade);  // Cascade delete for Student -> Department
+                .OnDelete(DeleteBehavior.SetNull);  // SetNull delete for Student -> Department
 
-            // Configure Instructor -> Department with Restrict Delete
             modelBuilder.Entity<Instructor>()
                 .HasOne(i => i.Department)
                 .WithMany(d => d.Instructors)
-                .HasForeignKey(i => i.departmentId) // Corrected Dept_ID to DepartmentId
-                .OnDelete(DeleteBehavior.Restrict); // Prevent cascading delete to avoid multiple paths
+                .HasForeignKey(i => i.dept_id)
+                .OnDelete(DeleteBehavior.SetNull);
 
             base.OnModelCreating(modelBuilder);
         }
