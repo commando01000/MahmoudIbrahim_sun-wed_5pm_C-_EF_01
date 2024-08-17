@@ -29,9 +29,7 @@ namespace MahmoudIbrahim_sun_wed_5pm_C__EF_01.Entities
 
         public List<StudentCourse> StudentCourses { get; set; }
 
-        public int InstructorId { get; set; }
-
-        public Instructor Instructor { get; set; }
+        public List<InstructorCourse> InstructorCourses { get; set; }
 
         [ForeignKey("TopicId")]
         public int TopicId { get; set; }

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MahmoudIbrahim_sun_wed_5pm_C__EF_01.Migrations
 {
     [DbContext(typeof(StudentDBClass))]
-    [Migration("20240814230712_OneToManyInstructor_Courses")]
-    partial class OneToManyInstructor_Courses
+    [Migration("20240817205250_instr-course-table")]
+    partial class instrcoursetable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,17 +40,18 @@ namespace MahmoudIbrahim_sun_wed_5pm_C__EF_01.Migrations
                     b.Property<double>("Duration")
                         .HasColumnType("float");
 
-                    b.Property<int>("InstructorId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(80)
                         .HasColumnType("nvarchar(80)");
 
+                    b.Property<int>("TopicId")
+                        .HasColumnType("int");
+
                     b.HasKey("id");
 
-                    b.HasIndex("InstructorId");
+                    b.HasIndex("TopicId")
+                        .IsUnique();
 
                     b.ToTable("Courses");
                 });
@@ -109,9 +110,32 @@ namespace MahmoudIbrahim_sun_wed_5pm_C__EF_01.Migrations
                     b.Property<int?>("Salary")
                         .HasColumnType("int");
 
+                    b.Property<int?>("dept_id")
+                        .HasColumnType("int");
+
                     b.HasKey("id");
 
+                    b.HasIndex("dept_id");
+
                     b.ToTable("instructors");
+                });
+
+            modelBuilder.Entity("MahmoudIbrahim_sun_wed_5pm_C__EF_01.Entities.InstructorCourse", b =>
+                {
+                    b.Property<int>("InstructorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Evaluation")
+                        .HasColumnType("int");
+
+                    b.HasKey("InstructorId", "CourseId");
+
+                    b.HasIndex("CourseId");
+
+                    b.ToTable("InstructorCourses");
                 });
 
             modelBuilder.Entity("MahmoudIbrahim_sun_wed_5pm_C__EF_01.Entities.Student", b =>
@@ -129,6 +153,9 @@ namespace MahmoudIbrahim_sun_wed_5pm_C__EF_01.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
+                    b.Property<int?>("DepartmentId")
+                        .HasColumnType("int");
+
                     b.Property<string>("FName")
                         .IsRequired()
                         .HasMaxLength(60)
@@ -140,6 +167,8 @@ namespace MahmoudIbrahim_sun_wed_5pm_C__EF_01.Migrations
                         .HasColumnType("nvarchar(60)");
 
                     b.HasKey("id");
+
+                    b.HasIndex("DepartmentId");
 
                     b.ToTable("Students");
                 });
@@ -182,13 +211,52 @@ namespace MahmoudIbrahim_sun_wed_5pm_C__EF_01.Migrations
 
             modelBuilder.Entity("MahmoudIbrahim_sun_wed_5pm_C__EF_01.Entities.Course", b =>
                 {
+                    b.HasOne("MahmoudIbrahim_sun_wed_5pm_C__EF_01.Entities.Topic", "Topic")
+                        .WithOne("Course")
+                        .HasForeignKey("MahmoudIbrahim_sun_wed_5pm_C__EF_01.Entities.Course", "TopicId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Topic");
+                });
+
+            modelBuilder.Entity("MahmoudIbrahim_sun_wed_5pm_C__EF_01.Entities.Instructor", b =>
+                {
+                    b.HasOne("MahmoudIbrahim_sun_wed_5pm_C__EF_01.Entities.Department", "Department")
+                        .WithMany("Instructors")
+                        .HasForeignKey("dept_id")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("Department");
+                });
+
+            modelBuilder.Entity("MahmoudIbrahim_sun_wed_5pm_C__EF_01.Entities.InstructorCourse", b =>
+                {
+                    b.HasOne("MahmoudIbrahim_sun_wed_5pm_C__EF_01.Entities.Course", "Course")
+                        .WithMany("InstructorCourses")
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("MahmoudIbrahim_sun_wed_5pm_C__EF_01.Entities.Instructor", "Instructor")
-                        .WithMany("Courses")
+                        .WithMany("InstructorCourses")
                         .HasForeignKey("InstructorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Course");
+
                     b.Navigation("Instructor");
+                });
+
+            modelBuilder.Entity("MahmoudIbrahim_sun_wed_5pm_C__EF_01.Entities.Student", b =>
+                {
+                    b.HasOne("MahmoudIbrahim_sun_wed_5pm_C__EF_01.Entities.Department", "Department")
+                        .WithMany("Students")
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("Department");
                 });
 
             modelBuilder.Entity("MahmoudIbrahim_sun_wed_5pm_C__EF_01.Entities.StudentCourse", b =>
@@ -212,17 +280,32 @@ namespace MahmoudIbrahim_sun_wed_5pm_C__EF_01.Migrations
 
             modelBuilder.Entity("MahmoudIbrahim_sun_wed_5pm_C__EF_01.Entities.Course", b =>
                 {
+                    b.Navigation("InstructorCourses");
+
                     b.Navigation("StudentCourses");
+                });
+
+            modelBuilder.Entity("MahmoudIbrahim_sun_wed_5pm_C__EF_01.Entities.Department", b =>
+                {
+                    b.Navigation("Instructors");
+
+                    b.Navigation("Students");
                 });
 
             modelBuilder.Entity("MahmoudIbrahim_sun_wed_5pm_C__EF_01.Entities.Instructor", b =>
                 {
-                    b.Navigation("Courses");
+                    b.Navigation("InstructorCourses");
                 });
 
             modelBuilder.Entity("MahmoudIbrahim_sun_wed_5pm_C__EF_01.Entities.Student", b =>
                 {
                     b.Navigation("StudentCourses");
+                });
+
+            modelBuilder.Entity("MahmoudIbrahim_sun_wed_5pm_C__EF_01.Entities.Topic", b =>
+                {
+                    b.Navigation("Course")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

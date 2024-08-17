@@ -29,6 +29,6 @@ namespace MahmoudIbrahim_sun_wed_5pm_C__EF_01.Contexts
         public DbSet<Instructor> instructors { get; set; }
         public DbSet<Topic> Topics { get; set; }
         public DbSet<StudentCourse> StudentCourses { get; set; }
-
+        public DbSet<InstructorCourse> InstructorCourses { get; set; }
     }
 }

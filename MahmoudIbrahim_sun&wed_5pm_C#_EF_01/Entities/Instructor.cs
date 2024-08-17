@@ -39,7 +39,7 @@ namespace MahmoudIbrahim_sun_wed_5pm_C__EF_01.Entities
 
         [Required]
         public int HourRate { get; set; }
-        public List<Course> Courses { get; set; }
+        public List<InstructorCourse> InstructorCourses { get; set; }
 
         public int? dept_id { get; set; }
 
